@@ -146,6 +146,8 @@ websocket-client = "==1.8.0"
 werkzeug = "==3.0.4"
 widgetsnbextension = "==4.0.13"
 wrapt = "==1.16.0"
+scikit-fuzzy = "*"
+networkx = "*"
 
 [dev-packages]
 

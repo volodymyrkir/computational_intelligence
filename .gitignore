@@ -1,3 +1,5 @@
 .idea/
 *.jpg
 *.jpeg
+lab2/data/*.csv
+*__pycache*
