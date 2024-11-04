@@ -4,17 +4,20 @@ from random import random
 import numpy as np
 import pandas as pd
 
-MAX_SPEED, MIN_SPEED = 150, 0
-MAX_DISTANCE = 100
-ROAD_CONDITIONS = ('dry', 'wet')
+MIN_SPEED, MAX_SPEED = 0, 40 # Meters per second (144 kms per hour)
+MIN_DISTANCE, MAX_DISTANCE = 0, 200 # Meters
+MIN_FRICTION, MAX_FRICTION = 0.4, 0.8 # Coefficient
 FREE_ROAD_PERCENTAGE = 0.6
 
 
 def create_dataset(
         num_samples: int,
-        max_speed: float = MAX_SPEED,
         min_speed: float = MIN_SPEED,
-        road_conditions: tuple[str] = ROAD_CONDITIONS,
+        max_speed: float = MAX_SPEED,
+        min_distance: float = MIN_DISTANCE,
+        max_distance: float = MAX_DISTANCE,
+        min_friction: float = MIN_FRICTION,
+        max_friction: float = MAX_FRICTION,
         free_road_percentage: float = FREE_ROAD_PERCENTAGE,
 ) -> pd.DataFrame:
     """
@@ -31,17 +34,16 @@ def create_dataset(
         pd.DataFrame: Generated dataframe.
     """
     data = {
-        'distance_to_obstacle': np.array([
-            val if random() > free_road_percentage else None
-            for val in np.random.uniform(0, MAX_SPEED, num_samples)
-        ]).astype(float),  # Відстань до об'єкта у мертрах
+        'distance_to_obstacle': np.round(
+            MAX_DISTANCE if random() < free_road_percentage else np.random.uniform(min_distance, max_distance, num_samples)
+        ).astype(float),
 
         'vehicle_speed': np.round(
             np.random.uniform(min_speed, max_speed, num_samples),
             decimals=3
-        ),  # Швидкість автомобіля в км/год
+        ),
 
-        'road_condition': np.random.choice(road_conditions, num_samples),  # Стан дороги
+        'friction': np.random.uniform(min_friction, max_friction, num_samples),  # Стан дороги
     }
     return pd.DataFrame(data)
 
