@@ -143,5 +143,5 @@ Werkzeug==3.0.4
 widgetsnbextension==4.0.13
 wrapt==1.16.0
 deap
-pyswarm
+pyswarms
 networkx
