@@ -3,3 +3,4 @@
 *.jpeg
 lab2/data/*.csv
 *__pycache*
+lab4/report.log
